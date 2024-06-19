@@ -105,11 +105,11 @@ console.log(obj, obj2, obj3, obj4);
 // getData(productOne)
 //more structured way
 // interface Product {
-//     name: string,
-//     stock: number,
-//     price: number,
-//     photo: string,
-//     readonly id: string,
+//     name: string;
+//     stock: number;
+//     price: number;
+//     photo: string;
+//     readonly id: string;
 // }
 // type GetDataType = (product: Product) => void;
 // const getData: GetDataType = (product) => {
@@ -168,3 +168,77 @@ console.log("Height", rocky.myHeight()); //getting hieght using function
 console.log("Height", rocky.getMyHeight); //getting height using the getter
 rocky.changeHeight = 122;
 console.log("Height", rocky.getMyHeight); //getting height using the getter after setting 
+class Product {
+    constructor(name, price, stock) {
+        this.name = name;
+        this.price = price;
+        this.stock = stock;
+        this.id = String(Math.random() * 1000);
+        this.getId = () => this.id;
+    }
+}
+const product1 = new Product("Iphone", 130, 4);
+console.log(product1.getId());
+// type assertion ------------- 1h 32m
+// const btn = document.getElementById('btn')
+// btn.click | will give error
+// const btn = document.getElementById('btn') as HTMLElement; //type 1
+// const btn = document.getElementById('btn'! //type 2 ! refers it is not null
+//another way
+const btn = document.getElementById('btn'); // type 3
+btn.onclick;
+// const img = document.getElementById('myimg') as HTMLImageElement // type 1
+const img = document.querySelector("img"); // type 2 
+img.src;
+const form = document.getElementById("myform");
+const myInput = document.querySelector("form > input");
+// const output = document.getElementById('result') as HTMLElement;
+// console.log(typeof +output);
+// form.onsubmit = (e: SubmitEvent) => {
+//     e.preventDefault();
+//     const value = Number(myInput.value)
+//     let newVal = value + 20;
+//     console.log(value, newVal);
+//     console.log(typeof newVal);
+//     output.innerText = newVal.toString();
+// }
+//another method
+form.onsubmit = (e) => {
+    e.preventDefault();
+    const h2 = document.createElement("h2");
+    const body = document.querySelector("body");
+    const value = Number(myInput.value);
+    h2.textContent = String(value + 20);
+    body.append(h2);
+};
+const myobj = {
+    name: "Rocky",
+    email: "rocky@gmail.com",
+};
+//get name using basic method
+//method 1
+// const getName = (): string =>{
+//     return myobj.name
+// }
+//method 2
+// const getName1 = (): string =>{
+//     return myobj["name"]
+// }
+const getName = () => {
+    return myobj["name"];
+};
+const getEmail = () => {
+    return myobj["email"];
+};
+//combine both in one single function
+// const getData = (key:string):string =>{ // for dynamic key
+//     return myobj[key]
+// }
+// const getData = (key:"name" | "email"):string =>{ 
+//     return myobj[key]
+// }
+//standard way to get all key names dynamically
+const getData = (key) => {
+    return myobj[key];
+};
+console.log(getData("email"));
