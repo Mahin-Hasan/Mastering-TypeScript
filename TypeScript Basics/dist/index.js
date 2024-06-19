@@ -126,6 +126,45 @@ console.log(obj, obj2, obj3, obj4);
 // }
 // getData(productOne)
 // Never Type
-const errorhandler = () => {
-    throw new Error();
-};
+// const errorhandler = (): never => {
+//     throw new Error()
+// }
+//_______________
+//classes
+class Player {
+    constructor(height, weight, power) {
+        this.height = height;
+        this.weight = weight;
+        this.power = power;
+        this.myHeight = () => {
+            return this.height;
+        };
+        this.id = String(Math.random() * 100);
+        // this.height = height;
+        // this.weight = weight;
+    }
+    //using getter function
+    get getMyHeight() {
+        return this.height;
+    }
+    //setter func
+    set changeHeight(val) {
+        this.height = val;
+    }
+}
+const rocky = new Player(120, 60, 30);
+// console.log(rocky.power); power can not be accessed directly bz protected it can be used by extending a class
+class Player2 extends Player {
+    constructor(height, weight, power, special) {
+        super(height, weight, power);
+        this.getPower = () => this.power; // power is protected and can be accessed in the sub class
+        this.special = special;
+    }
+}
+const rocky1 = new Player2(10, 20, 30, true);
+console.log("Weight", rocky1.getPower());
+console.log("Id", rocky.id);
+console.log("Height", rocky.myHeight()); //getting hieght using function
+console.log("Height", rocky.getMyHeight); //getting height using the getter
+rocky.changeHeight = 122;
+console.log("Height", rocky.getMyHeight); //getting height using the getter after setting 
