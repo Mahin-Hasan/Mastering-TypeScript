@@ -311,8 +311,8 @@ interface Person {
     email: string
 }
 
-const myobj:Person ={
-    name:"Rocky",
+const myobj: Person = {
+    name: "Rocky",
     email: "rocky@gmail.com",
 }
 //get name using basic method
@@ -324,10 +324,10 @@ const myobj:Person ={
 // const getName1 = (): string =>{
 //     return myobj["name"]
 // }
-const getName = (): string =>{
+const getName = (): string => {
     return myobj["name"]
 }
-const getEmail = (): string =>{
+const getEmail = (): string => {
     return myobj["email"]
 }
 //combine both in one single function
@@ -340,7 +340,136 @@ const getEmail = (): string =>{
 
 
 //standard way to get all key names dynamically
-const getData = (key: keyof Person):string =>{
+const getData = (key: keyof Person): string => {
     return myobj[key]
 }
 console.log(getData("email"));
+//1h 55m
+
+// -- type utility
+
+//Partial<Type>
+
+// type User ={
+//     name: string,
+//     email: string
+// }
+
+// type User2 = Partial<User>
+
+// Required<Type> - opposite of partial
+// type User = {
+//     name?: string,
+//     email: string
+// }
+
+// const User2: Required<User>={
+//     name: 'Mahin',
+//     email: 'mahin@gmail.com'
+// }
+
+//Readonly<Type>
+// type User ={
+//     name:string,
+//     email: string,
+// }
+
+// const user:Readonly<User> ={
+//     name: 'Rocky',
+//     email: 'rocky@gmail.com'
+// }
+// user.name='rocky2'
+
+// Record<keys, Type>
+
+// type User = {
+//     name:string,
+//     email: string
+// }
+
+// type User2 = Record<"name" | "email", string>
+
+// Example 
+//  interface UserInfo {
+//     age: number;
+//  }
+
+//  type UserName = "jhon" | "levi" | "rocky" | "mark";
+
+//  const users: Record<UserName, UserInfo> ={
+//     jhon:{age: 21},
+//     levi:{age: 25},
+//     rocky:{age: 31},
+//     mark:{age: 24}
+//  }
+
+//  console.log(users.jhon.age);
+
+//Pink<Type, keys>
+
+// interface OrderInfo {
+//     readonly id: string;
+//     user: string;
+//     city: string;
+//     state: string;
+//     country: string;
+//     status: string;
+// }
+
+// type ShippingInfo = Pick<OrderInfo, "city" | "state" | "country">
+
+//Omit <Type, Keys> omits key
+
+// interface OrderInfo {
+//     city: string;
+//     state: string;
+//     country: string;
+// }
+
+// type Remaining = Omit<OrderInfo, "country">
+
+//Exclude<Type,ExcludeUnion>
+
+// type MyUnion = string | number | boolean;
+// type random = Exclude<MyUnion, boolean> // will emit boolean type 
+
+// Extarct <Type, Union>
+
+// type MyUnion = string | number | boolean;
+// type random = Extract<MyUnion, boolean> // will gather boolean type
+
+// NonNullable<Type>
+
+// type MyUnion = string | number | boolean | null | undefined;
+// type random = NonNullable<MyUnion> // will not accept null or undefined 
+
+//Parameters<Type>
+// const myFunc = (a:number, b:string)=>{
+//     console.log(a+b);
+// }
+// type Random = Parameters<typeof myFunc>// to know the parameters of a function
+
+//ConstructorParameters<Type>
+// class SampleClass {
+//     constructor(public s:string, public t:string){}
+// }
+
+// type random = ConstructorParameters<typeof SampleClass>// top find parameters of constructor
+
+//ReturnType<Type>
+// const myFunc = (a: number, b: string):string => {
+//     return (a + b);
+// }
+// type FuncType1 = ReturnType<typeof myFunc> //know return type of function
+
+//InstanceType<Type>
+class SampleClass {
+    constructor(public s:string, public t:string){}
+}
+
+type Random = InstanceType<typeof SampleClass>
+
+const user:Random ={
+    s: '123',
+    t: 'something'
+}
