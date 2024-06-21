@@ -339,3 +339,53 @@ const user = {
     s: '123',
     t: 'something'
 };
+const customFunc = (n) => {
+    return n;
+};
+const individual1 = {
+    name: "Rocky",
+    age: 119
+};
+const output = customFunc(individual1);
+console.log(output);
+const person10 = {
+    name: 'Tony',
+    age: 43,
+};
+const person20 = {
+    name: 'Jony',
+    age: 23,
+    email: 'levi@gmail.com'
+};
+const funcC = (n, o) => {
+    return { n, o };
+};
+const ans = funcC(person10, person20);
+console.log(ans);
+const users = [
+    {
+        name: 'Jony',
+        age: 65,
+    },
+    {
+        name: 'liver',
+        age: 43,
+    },
+    {
+        name: 'mark',
+        age: 21,
+    }
+];
+//without generic
+// const filterByPeoples = (arr: [], property: any, value: any) => {
+//     arr.filter((item) => item[property] === value)
+// }
+//converting to generic
+const filterByPeoples = (arr, //T represents the type of array in object, U represents key of T
+property, value) => {
+    return arr.filter((item) => item[property] === value);
+};
+const filteredPeopleByName = filterByPeoples(users, "name", "mark");
+const filteredPeopleByAge = filterByPeoples(users, "age", 43);
+console.log(filteredPeopleByName);
+console.log(filteredPeopleByAge);

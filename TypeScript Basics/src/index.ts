@@ -464,12 +464,107 @@ console.log(getData("email"));
 
 //InstanceType<Type>
 class SampleClass {
-    constructor(public s:string, public t:string){}
+    constructor(public s: string, public t: string) { }
 }
 
 type Random = InstanceType<typeof SampleClass>
 
-const user:Random ={
+const user: Random = {
     s: '123',
     t: 'something'
 }
+
+//use generics instead of any
+
+// const customFunc = <CustomType>(n: CustomType): CustomType => { // here CustomType works as a placeholder
+//     let text: CustomType;
+//     return n;
+// }
+// const result = customFunc(20); // after using generics ide will provide methods automatically
+// const result2 = customFunc('20');
+// const result3 = customFunc(true);
+type Individual = {
+    name: string,
+    age: number,
+};
+
+const customFunc = <T>(n: T): T => { // here T works as a placeholder
+    return n;
+}
+
+const individual1: Individual = {
+    name: "Rocky",
+    age: 119
+}
+
+const output = customFunc<Individual>(individual1)
+
+console.log(output);
+
+// more usage of generics
+
+type Person10 = {
+    name: string,
+    age: number
+}
+type Person20 = {
+    name: string,
+    age: number,
+    email: string
+}
+
+const person10: Person10 = {
+    name: 'Tony',
+    age: 43,
+}
+const person20: Person20 = {
+    name: 'Jony',
+    age: 23,
+    email: 'levi@gmail.com'
+}
+
+const funcC = <T, U extends T>(n: T, o: U): { n: T, o: U } => { // means it will return an object {n:T, o:U}
+    return { n, o };
+}
+
+const ans = funcC<Person10, Person20>(person10, person20)
+
+console.log(ans);
+
+//generics
+type People = {
+    name: string;
+    age: number;
+}
+
+const users: People[] = [
+    {
+        name: 'Jony',
+        age: 65,
+    },
+    {
+        name: 'liver',
+        age: 43,
+    },
+    {
+        name: 'mark',
+        age: 21,
+    }
+]
+//without generic
+// const filterByPeoples = (arr: [], property: any, value: any) => {
+//     arr.filter((item) => item[property] === value)
+// }
+//converting to generic
+const filterByPeoples = <T, U extends keyof T>( 
+    arr: T[], //T represents the type of array in object, U represents key of T
+    property: U,
+    value: T[U]
+): T[] => {
+    return arr.filter((item) => item[property] === value)
+}
+
+const filteredPeopleByName = filterByPeoples(users, "name", "mark")
+const filteredPeopleByAge = filterByPeoples(users, "age", 43)
+console.log(filteredPeopleByName);
+console.log(filteredPeopleByAge);
