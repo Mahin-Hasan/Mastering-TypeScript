@@ -38,7 +38,7 @@ const generateTodoItem = (title: string, isCompleted: boolean, id: string) => {
     checkBox.setAttribute("type", "checkbox");
     checkBox.className = "isCompleted";
     checkBox.checked = isCompleted;
-    console.log('test',checkBox.checked);
+    // console.log('test',checkBox.checked);
     checkBox.onchange = () => {
         //fix checked item error after new item added
         todos.find((item)=>{
