@@ -38,16 +38,29 @@ const generateTodoItem = (title: string, isCompleted: boolean, id: string) => {
     checkBox.setAttribute("type", "checkbox");
     checkBox.className = "isCompleted";
     checkBox.checked = isCompleted;
+    console.log('test',checkBox.checked);
+    checkBox.onchange = () => {
+        //fix checked item error after new item added
+        todos.find((item)=>{
+            if(item.id ===id) item.isCompleted = checkBox.checked;
+        })
+        paragraph.className = checkBox.checked ? "textCut" : "";
+    }
+
 
     //creating P tag for title
     const paragraph: HTMLParagraphElement = document.createElement("p");
     paragraph.innerText = title;
+    //fixing check error after adding another item
+    paragraph.className = isCompleted ? "textCut" : "";
     //creating delete button
 
     const btn: HTMLButtonElement = document.createElement("button");
     btn.innerText = "X"
     btn.className = "deleteBtn";
-
+    btn.onclick = () => {
+        deleteTodo(id)
+    }
 
     // Appending All to todo Div
     todo.append(checkBox, paragraph, btn)
@@ -55,6 +68,13 @@ const generateTodoItem = (title: string, isCompleted: boolean, id: string) => {
     todosContainer.append(todo);
 
 }
+const deleteTodo = (id: string) => {
+    const idx = todos.findIndex((item) => item.id === id);
+    todos.splice(idx, 1);
+    //needs to re render after deleted
+    renderTodo(todos)
+}
+
 
 const renderTodo = (todos: Todo[]) => {
     todosContainer.innerText = "";// fixes duplicate entry
