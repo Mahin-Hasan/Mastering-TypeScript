@@ -1,61 +1,103 @@
+//redux toolkit 
 
-//Reducer in TypeScript
-
-import { useReducer } from "react"
-
-type StateType = {
-  count: number
-}
-
-type ActionType =
-  | { type: "Increment", payload: number }
-  | { type: "Deccrement", payload: number }
-
-
-const reducer = (state: StateType, action: ActionType): StateType => {
-  switch (action.type) {
-    case "Increment":
-      return { count: state.count + action.payload }
-    case "Deccrement":
-      return { count: state.count - action.payload }
-    default:
-      return state;
-  }
-}
-
-const initialState: StateType = {
-  count: 0
-}
+import { useState } from "react"
+import { useDispatch, useSelector } from "react-redux";
+import { StateType, decrement, increment, incrementByValue } from "./redux";
 
 function App() {
-  const [state, dispatch] = useReducer(reducer, initialState)
+  const [val, setVal] = useState<number>(0);
 
-  const increment = (): void => {
-    dispatch({
-      type: "Increment",
-      payload: 1,
-    })
-  }
-  const decrement = (): void => {
-    dispatch({
-      type: "Deccrement",
-      payload: 1,
-    })
-  }
+  const count = useSelector((state: StateType) => state.count)
 
+  const dispatch = useDispatch()
+
+  const incrementHandler = () => {
+    dispatch(increment())
+  }
+  const decrementHandler = () => {
+    dispatch(decrement())
+  }
+  const incrementByValueHandler = () => {
+    setVal(0)
+    dispatch(incrementByValue(val))
+  }
   return (
     <>
       <div>
-        <h1>check</h1>
-        <p>Count: {state.count}</p>
-        <button onClick={increment}>+</button>
-        <button onClick={decrement}>-</button>
+        <h1>Redux Toolkit</h1>
+        <h2>Count: {count}</h2>
+        <button onClick={incrementHandler}>+</button>
+        <button onClick={decrementHandler}>-</button>
+        <input type="number"
+          value={val}
+          onChange={(e) => setVal(Number(e.target.value))}
+        />
+        <button disabled={val < 0} onClick={incrementByValueHandler}>Add</button>
       </div>
     </>
   )
 }
 
 export default App
+
+
+//Reducer in TypeScript
+
+// import { useReducer } from "react"
+
+// type StateType = {
+//   count: number
+// }
+
+// type ActionType =
+//   | { type: "Increment", payload: number }
+//   | { type: "Deccrement", payload: number }
+
+
+// const reducer = (state: StateType, action: ActionType): StateType => {
+//   switch (action.type) {
+//     case "Increment":
+//       return { count: state.count + action.payload }
+//     case "Deccrement":
+//       return { count: state.count - action.payload }
+//     default:
+//       return state;
+//   }
+// }
+
+// const initialState: StateType = {
+//   count: 0
+// }
+
+// function App() {
+//   const [state, dispatch] = useReducer(reducer, initialState)
+
+//   const increment = (): void => {
+//     dispatch({
+//       type: "Increment",
+//       payload: 1,
+//     })
+//   }
+//   const decrement = (): void => {
+//     dispatch({
+//       type: "Deccrement",
+//       payload: 1,
+//     })
+//   }
+
+//   return (
+//     <>
+//       <div>
+//         <h1>check</h1>
+//         <p>Count: {state.count}</p>
+//         <button onClick={increment}>+</button>
+//         <button onClick={decrement}>-</button>
+//       </div>
+//     </>
+//   )
+// }
+
+// export default App
 
 
 
