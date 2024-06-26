@@ -6,11 +6,25 @@ import { useState } from "react"
 function App() {
   const [todos, setTodos] = useState<TodoItemType[]>([]);
 
-  const [title, setTitle] = useState<TodoItemType["title"]>([""]);
+  const [title, setTitle] = useState<TodoItemType["title"]>("");
 
 
-  const completeHandler = (id: TodoItemType["id"]): void => { }
-  const deleteHandler = (id: TodoItemType["id"]): void => { }
+  const completeHandler = (id: TodoItemType["id"]): void => {
+    const newTodos: TodoItemType[] = todos.map((i) => {
+      if (i.id === id) i.isCompleted = !i.isCompleted;
+      return i;
+    })
+    // console.log(newTodos);
+    setTodos(newTodos)
+  }
+  const deleteHandler = (id: TodoItemType["id"]): void => {
+    const newTodos: TodoItemType[] = todos.filter((i) => i.id !== id);
+    setTodos(newTodos);
+  }
+
+  const editHandler = (id: TodoItemType["id"]): void => {
+    console.log(id);
+  }
 
   const submitHandler = (): void => {
     const newTodo: TodoItemType = {
@@ -39,6 +53,7 @@ function App() {
               todo={i}
               completeHandler={completeHandler}
               deleteHandler={deleteHandler}
+              editHandler={editHandler}
             />
           ))
         }
@@ -47,8 +62,19 @@ function App() {
       <TextField
         value={title}
         onChange={(e) => setTitle(e.target.value)}
-        fullWidth label={"New task"} />
-      <Button sx={{ margin: "1rem 0" }} fullWidth variant="contained" onClick={submitHandler}>Add</Button>
+        fullWidth label={"New task"}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" && title !== "") {
+            submitHandler();
+          }
+        }}
+      />
+      <Button
+        sx={{ margin: "1rem 0" }}
+        fullWidth
+        variant="contained"
+        disabled={title === ""}
+        onClick={submitHandler}>Add</Button>
     </Container>
   )
 }
