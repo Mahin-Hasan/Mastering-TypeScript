@@ -1,10 +1,11 @@
 import { AppBar, Button, Container, Stack, TextField, Toolbar, Typography } from "@mui/material"
 import TodoItem from "./components/TodoItem"
-import { useState } from "react"
+import { useEffect, useState } from "react"
+import { getTodos, saveTodos } from "./utils/features";
 
 
 function App() {
-  const [todos, setTodos] = useState<TodoItemType[]>([]);
+  const [todos, setTodos] = useState<TodoItemType[]>(getTodos());
 
   const [title, setTitle] = useState<TodoItemType["title"]>("");
 
@@ -16,14 +17,21 @@ function App() {
     })
     // console.log(newTodos);
     setTodos(newTodos)
+
   }
   const deleteHandler = (id: TodoItemType["id"]): void => {
     const newTodos: TodoItemType[] = todos.filter((i) => i.id !== id);
     setTodos(newTodos);
+
   }
 
-  const editHandler = (id: TodoItemType["id"]): void => {
-    console.log(id);
+  const editHandler = (id: TodoItemType["id"],
+    newTitle: TodoItemType["title"]): void => {
+    const newTodos: TodoItemType[] = todos.map((i) => {
+      if (i.id === id) i.title = newTitle;
+      return i;
+    })
+    setTodos(newTodos);
   }
 
   const submitHandler = (): void => {
@@ -35,6 +43,11 @@ function App() {
     setTodos((prev) => [...prev, newTodo]);
     setTitle("")
   };
+
+  //asve to local storage
+  useEffect(() => {
+    saveTodos(todos)
+  }, [todos])
   return (
     <Container maxWidth="sm" sx={{ height: "100vh" }}>
       <AppBar position="static">

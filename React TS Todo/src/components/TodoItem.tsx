@@ -6,7 +6,7 @@ type PropsType = {
     todo: TodoItemType;
     completeHandler: (id: TodoItemType["id"]) => void;
     deleteHandler: (id: TodoItemType["id"]) => void;
-    editHandler: (id: TodoItemType["id"]) => void;
+    editHandler: (id: TodoItemType["id"], newTitle: TodoItemType["title"]) => void;
 }
 
 
@@ -23,6 +23,12 @@ const TodoItem = ({ todo, completeHandler, deleteHandler, editHandler }: PropsTy
                         ?
                         <TextField value={textVal}
                             onChange={(e) => setTextVal(e.target.value)}
+                            onKeyDown={(e) => {
+                                if (e.key === "Enter" && textVal !== "") {
+                                    editHandler(todo.id, textVal)
+                                    setEditActive(false)
+                                }
+                            }}
                         />
                         :
                         <Typography marginRight={"auto"}>{todo.title}</Typography>
@@ -30,8 +36,14 @@ const TodoItem = ({ todo, completeHandler, deleteHandler, editHandler }: PropsTy
                 }
                 <Checkbox checked={todo.isCompleted} onChange={() => completeHandler(todo.id)} />
                 <Button
-                    onClick={() => setEditActive((prev) => !prev)}
-                    color="warning" sx={{ fontWeight: "600" }}>Edit</Button>
+                    onClick={() => {
+                        if (editActive) {
+                            editHandler(todo.id, textVal);
+                        }
+                        setEditActive((prev) => !prev);
+                    }}
+
+                    color="warning" sx={{ fontWeight: "600" }}>{editActive ? "Done" : "Edit"}</Button>
                 <Button onClick={() => deleteHandler(todo.id)} color="error"><Delete /></Button>
             </Stack>
         </Paper>
