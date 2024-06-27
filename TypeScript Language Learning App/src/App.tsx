@@ -9,14 +9,13 @@ const Quiz = lazy(() => import("./components/Quiz"))
 const Result = lazy(() => import("./components/Result"))
 
 const App = () => {
-//5h 35m
   return (
     <Router>
       <Header />
       <Suspense fallback={<Loader />}>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/learning" element={<Learning />} />
+          <Route path="/learn" element={<Learning />} />
           <Route path="/quiz" element={<Quiz />} />
           <Route path="/result" element={<Result />} />
         </Routes>
