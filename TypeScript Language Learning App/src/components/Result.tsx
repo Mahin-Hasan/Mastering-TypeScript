@@ -30,28 +30,30 @@ const Result = () => {
                 You got {correctAns} right out of {words?.length}
             </Typography>
             <Stack direction={"row"} justifyContent={"space-evenly"}>
-                <Typography m={"1rem 0"} variant="h5">
-                    Your Ans
-                </Typography>
-                <List>
-                    {result.map((i, idx) => (
-                        <ListItem key={idx}>
-                            {idx + 1} - {i}
-                        </ListItem>
-                    ))}
-                </List>
-            <Stack>
-                <Typography m={"1rem 0"} variant="h5">
-                    Correct Ans
-                </Typography>
-                <List>
-                    {words?.map((i, idx) => (
-                        <ListItem key={idx}>
-                            {idx + 1} - {i.meaning}
-                        </ListItem>
-                    ))}
-                </List>
-            </Stack>
+                <Stack>
+                    <Typography m={"1rem 0"} variant="h5">
+                        Your Ans
+                    </Typography>
+                    <List>
+                        {result.map((i, idx) => (
+                            <ListItem key={idx}>
+                                {idx + 1} - {i}
+                            </ListItem>
+                        ))}
+                    </List>
+                </Stack>
+                <Stack>
+                    <Typography m={"1rem 0"} variant="h5">
+                        Correct Ans
+                    </Typography>
+                    <List>
+                        {words?.map((i, idx) => (
+                            <ListItem key={idx}>
+                                {idx + 1} - {i.meaning}
+                            </ListItem>
+                        ))}
+                    </List>
+                </Stack>
             </Stack>
             <Typography
                 m={"1rem"}

@@ -1,4 +1,4 @@
-import { ArrowBack, VolumeUp } from "@mui/icons-material";
+import { ArrowBack } from "@mui/icons-material";
 import { Button, Container, Stack, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
@@ -30,7 +30,7 @@ const Learning = () => {
             // console.log(err);
             dispatch(getWordsFail(err))
         })
-        if(error){
+        if (error) {
             alert(error);
             dispatch(clearState());
         }
@@ -53,12 +53,7 @@ const Learning = () => {
                 <Typography color={"blue"} variant="h4">
                     :  {words[count]?.meaning}
                 </Typography>
-                <Button sx={{
-                    borderRadius: "50%"
-                }}
-                >
-                    <VolumeUp />
-                </Button>
+
 
             </Stack>
             <Button sx={{
@@ -66,7 +61,7 @@ const Learning = () => {
             }}
                 variant="contained"
                 fullWidth
-                onClick={count === words.length - 1  ? () => navigate("/quiz") : nextHandler}
+                onClick={count === words.length - 1 ? () => navigate("/quiz") : nextHandler}
             >
                 {count === words.length - 1 ? "Test" : "Next"}
             </Button>
