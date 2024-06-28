@@ -1,10 +1,11 @@
+import { CircularProgress, Stack } from "@mui/material";
 
 const Loader = () => {
-    return (
-        <div>
-            This is Loader
-        </div>
-    );
+  return (
+    <Stack alignItems={"center"} justifyContent={"center"} height={"80vh"}>
+      <CircularProgress size={"10rem"} />
+    </Stack>
+  );
 };
 
 export default Loader;
