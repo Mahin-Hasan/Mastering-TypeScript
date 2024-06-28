@@ -11,6 +11,10 @@ const languages = [
         code: "hi"
     },
     {
+        name: "Bangla",
+        code: "bn"
+    },
+    {
         name: "Spanish",
         code: "es"
     },
@@ -42,7 +46,7 @@ const Home = () => {
             >
                 {
                     languages.map(i => (
-                        <Button onClick={() => languageSelectHandler(i.code)} key={i.code}>{i.name}</Button>
+                        <Button onClick={() => languageSelectHandler(i.code)} key={i.code} variant="contained">{i.name}</Button>
                     ))
                 }
             </Stack>

@@ -1,11 +1,30 @@
 import axios from "axios";
+import _ from "lodash";
 import { generate } from "random-words";
 
 
 export const translateWords = async (params: LangType): Promise<WordType[]> => {
 
 
-    //7h32m
+    const generateMCQ = (
+        meaning: {
+            Text: string;
+        }[],
+        idx: number
+    ): string[] => {
+        const correctAns: string = meaning[idx].Text;
+
+        const allMeaningsExceptForCorrect = meaning.filter(
+            (i) => i.Text !== correctAns
+        )
+
+        const incorrectOptions: string[] = _.sampleSize(allMeaningsExceptForCorrect, 3).map(
+            (i) => i.Text
+        )
+        const mcqOptions = _.shuffle([...incorrectOptions, correctAns]);
+
+        return mcqOptions;
+    }
 
     try {
         const words = generate(8).map((i) => ({
@@ -34,10 +53,12 @@ export const translateWords = async (params: LangType): Promise<WordType[]> => {
         // receive[0].translations[0].text
 
         const arr: WordType[] = receive.map((i, idx) => {
+            const options: string[] = generateMCQ(words, idx)
+
             return {
                 word: i.translations[0].text,
                 meaning: words[idx].Text,
-                options: ["A TEXT"]
+                options
             }
         })
         return arr;
