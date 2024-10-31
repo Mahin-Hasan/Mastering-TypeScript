@@ -24,3 +24,27 @@ const user: {
 };
 // user.company ='PH' // will now allow
 // user.course='L!' will not allow bz readonly
+
+//Level 2 Routine
+const DevelopmentRoutine: {
+  moduleComplete: string;
+  gym: string;
+  dinner: string;
+  upScale: string;
+  sleep: string;
+  lunch: string;
+  totalHours: number;
+  isSessionCompleted: (hours: number) => string;
+} = {
+  moduleComplete: "6-10pm CODE 💻",
+  gym: "10-11pm Gym 💪",
+  dinner: "11-1am dinner, fam, shower",
+  upScale: "1-5am polish projects, LeetCode, YT, 🤲",
+  sleep: "5-1pm sleep 💤",
+  lunch: "1-6pm lunch, books, Duolingo, LinkedIn, 🤲",
+  totalHours: 0,
+  isSessionCompleted(hours: number): string {
+    this.totalHours += hours;
+    return `I have completed ${this.totalHours} hours of study session.`;
+  },
+};
