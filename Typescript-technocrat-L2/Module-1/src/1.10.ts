@@ -3,9 +3,9 @@
   //   type FrontendDeveloper = "cheaterDeveloper" | "juniorDeveloper";
 //   type FullstackDeveloper = "frontendDeveloper" | "expertDeveloper";
 
-  type Developer = FrontendDeveloper | FullstackDeveloper;
+//   type Developer = FrontendDeveloper | FullstackDeveloper;
 
-  const newDeveloper: FrontendDeveloper = "cheaterDeveloper";
+//   const newDeveloper: FrontendDeveloper = "cheaterDeveloper";
 
   type User = {
     name: string;
@@ -24,7 +24,7 @@
     skills: string[];
     designation1: "Frontend Developer";
   };
-  type BackendDeveloper = {
+  type BackendDeveloper = {  
     skills: string[];
     designation2: "Backend Developer";
   };
