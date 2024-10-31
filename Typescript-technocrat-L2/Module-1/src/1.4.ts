@@ -20,7 +20,7 @@ let friends: string[] = ["Rocky", "Maxxine"];
 let eligibleIds: number[] = [12, 45, 66];
 // eligibleIds.push('qsd') will not allow
 
-//tuple --> array --> order --> tyupe of values
+//tuple --> array --> order --> type of values
 
 let coOrdinates: [number, number] = [10, 15];
 let ageName: [number, string, boolean] = [24, "Mahin", true];
