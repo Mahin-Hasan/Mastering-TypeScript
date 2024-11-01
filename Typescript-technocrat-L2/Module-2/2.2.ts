@@ -50,7 +50,7 @@
   }
 
   const rollNumber1: Roll1 = [1, 2, 3]; //using type
-  const rollNumber1: Roll2 = [1, 2, 3]; // using interface
+  const rollNumber2: Roll2 = [1, 2, 3]; // using interface
 
   type Add = (num1: number, num2: number) => number;
   interface Add2 {
