@@ -50,7 +50,7 @@
       course,
     };
   };
-
+ 
   const student1 = addCourseToStudent({name:'Mr X', email:'mx@gmail.com',devType:'L2 Developer'})
   console.log(student1);
 }
