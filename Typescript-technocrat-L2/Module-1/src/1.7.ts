@@ -13,7 +13,7 @@
   const bros1: string[] = ["robi", "rocky", "ricky"];
   const bros2: string[] = ["toni", "rony", "micky"];
 
-  //   bros1.push(bros2) will give errot
+  //   bros1.push(bros2) will give error
   bros1.push(...bros2);
 
   const mentors1 = {
